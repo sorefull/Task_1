@@ -3,9 +3,6 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def index
-  end
-
   def create
     @user = User.new(user_params)
     if @user.save
@@ -16,18 +13,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def show
     @user = User.find(params[:id])
     @posts = @user.posts
-  end
-
-  def update
-  end
-
-  def destroy
   end
 
   private

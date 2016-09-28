@@ -9,6 +9,7 @@
 #  updated_at      :datetime         not null
 #  password_digest :string
 #  role            :integer          default("user")
+#  status          :integer          default("normal")
 #
 
 class User < ApplicationRecord
@@ -19,11 +20,15 @@ class User < ApplicationRecord
   validates :email, presence:   true, length: { maximum: 255 },
                     format:     { with: VALID_EMAIL_REGEX },uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+  # validates :password, presence: true, length: { minimum: 6 }
 
   # Posts
   has_many :posts
 
   #admin
   enum role: [:user, :admin] #[:moderator, :owner, etc]
+
+  # blocked
+  enum status: [:normal, :blocked]
+
 end

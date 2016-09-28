@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:new, :create]
   before_action :owner?, only: :destroy
+  before_action :can?, only: [:new, :create, :destroy]
 
   # GET /posts
   # GET /posts.json
@@ -68,6 +69,12 @@ class PostsController < ApplicationController
       unless ( current_user == @post.user ) or ( current_user.admin? )
         log_out
         redirect_to login_path, alert: 'Log in before!'
+      end
+    end
+
+    def can?
+      if current_user.blocked?
+        redirect_to welcome_path, alert: 'Sorry, you are blocked!'
       end
     end
 end

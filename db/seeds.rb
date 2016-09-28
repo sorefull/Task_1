@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create(name: :admin,
-            email: 'admin@email.com',
-            password: '1234567890',
-            password_confirmation: '1234567890',
+            email: 'adminuser@example.com',
+            password: 'adminadmin',
+            password_confirmation: 'adminadmin',
             role: 1)

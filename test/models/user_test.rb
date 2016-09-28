@@ -9,6 +9,7 @@
 #  updated_at      :datetime         not null
 #  password_digest :string
 #  role            :integer          default("user")
+#  status          :integer          default("normal")
 #
 
 require 'test_helper'

@@ -5,6 +5,9 @@
     <%= link_to "Profile", current_user, style: 'color:green;' %> |
     <%= link_to "New post", new_post_path, style: 'color:green;' %> |
     <%= link_to "Log out", logout_path, method: :delete, style: 'color:red;' %> |
+    <% if admin_logged_in? %>
+      <%= link_to "Admin Page", users_path, style: 'color:red;' %> |
+    <% end %>
   <% else %>
     <%= link_to "Log in", login_path, style: 'color:blue;' %> |
     <%= link_to "Sign up", signup_path, style: 'color:blue;' %> |
