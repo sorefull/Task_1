@@ -1,0 +1,24 @@
+<div class="header">
+  <%= link_to "Welcome", welcome_path, style: 'color:blue;' %> |
+  <%= link_to "All posts", posts_path, style: 'color:blue;' %> |
+  <% if logged_in? %>
+    <%= link_to "Profile", current_user, style: 'color:green;' %> |
+    <%= link_to "New post", new_post_path, style: 'color:green;' %> |
+    <%= link_to "Log out", logout_path, method: :delete, style: 'color:red;' %> |
+  <% else %>
+    <%= link_to "Log in", login_path, style: 'color:blue;' %> |
+    <%= link_to "Sign up", signup_path, style: 'color:blue;' %> |
+  <% end %>
+  <%= link_to "About", about_path, style: 'color:blue;' %>
+</div>
+
+
+<!-- (b) => blue; -->
+<!-- (r) => red; -->
+<!-- (g) => green; -->
+
+<!-- Loged in -->
+<!-- Welcome(b) | All posts(b) | Profile(g) | New post(g) | Log out(r) | About(b) -->
+
+<!-- Loged out -->
+<!-- Welcome(b) | All posts(b) | Log in(b) | Sign up(b) | About(b) -->

@@ -1,0 +1,17 @@
+<p>
+  <strong>Username:</strong>
+  <%= link_to @post.user.name, @post.user %>
+</p>
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Body:</strong><br>
+  <%= @post.body %>
+</p>
+
+<% if current_user == @post.user %><p>
+  <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' } %>
+</p><% end %>

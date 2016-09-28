@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       # Log the user in and redirect to the user's show page.
       # redirect_to user
       log_in user
-      redirect_to user, notice: :succesfully
+      redirect_to user, notice: 'You loged in'
     else
       # Create an error message.
       redirect_to login_path, alert: 'Invalid email/password combination'
@@ -17,6 +17,6 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out
-    redirect_to welcome_path
+    redirect_to welcome_path, notice: 'You loged out'
   end
 end
