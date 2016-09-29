@@ -1,4 +1,6 @@
+<%= link_to 'Get JSON', user_url(@user, format: :json), style: 'color:blue;' %>
 <h1><%= @user.email %><% if @user.admin? %> [Admin]<% end %><% if @user.blocked? %> [BLOCKED]<% end %></h1>
+
 <% unless current_user == @user %>
   <% unless current_user.following? @user %>
     <%= link_to 'Follow', follow_user_path(@user), method: :post, style: 'color:blue;' %>
