@@ -1,6 +1,6 @@
 <p>
   <strong>Username:</strong>
-  <%= link_to @post.user.name, @post.user %>
+  <%= link_to @post.user.name, @post.user, style: 'color:green;' %>
 </p>
 <p>
   <strong>Title:</strong>
@@ -12,6 +12,14 @@
   <%= @post.body %>
 </p>
 
-<% if current_user == @post.user %><p>
-  <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' } %>
+<p>Likes (<%= @post.liked_by.count %>)
+<% if logged_in? %>
+  <% if can_like? @post %>
+    <%= link_to "Like", like_post_path(@post), method: :post, style: 'color:blue;' %>
+  <% else %>
+    <%= link_to "Unlike!", unlike_post_path(@post), method: :post, style: 'color:blue;' %>
+  <% end %>
+<% end %>
+<% if current_user == @post.user %>
+  <%= link_to 'Destroy post', @post, method: :delete, data: { confirm: 'Are you sure?' }, style: 'color:red;' %>
 </p><% end %>

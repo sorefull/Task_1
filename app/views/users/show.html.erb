@@ -1,14 +1,14 @@
 <h1><%= @user.name %><% if @user.admin? %> [Admin]<% end %></h1>
 <% if logged_in? and current_user != @user %>
   <% if can_subscribe? @user %>
-    <%= link_to "Subscribe", subscribe_path(@user) %>
+    <%= link_to "Subscribe", subscribe_user_path(@user), method: :post %>
   <% else %>
-    <%= link_to "Unsubscribe", unsubscribe_path(@user) %>
+    <%= link_to "Unsubscribe", unsubscribe_user_path(@user), method: :post %>
   <% end %>
 <% end %>
 <% if @user.subscribers.count > 0 %><h3>In his feed:</h3>
 <% @user.subscribers.each do |user| %>
-  <%= link_to user.name, users_path(user) %>
+  <%= link_to user.name, user_path(user) %>
 <% end %><% end %>
 <% if @user.posts.count > 0 %><h3>Posts:</h3>
 <ul>

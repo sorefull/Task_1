@@ -16,14 +16,24 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   # user
-  resources :users, except: [:index, :edit, :update, :destroy]
+  resources :users, except: [:index, :edit, :update, :destroy] do
+    member do
+      post :subscribe
+      post :unsubscribe
+    end
+  end
   get 'signup', to: 'users#new'
-  get 'subscribe/:id', to: 'users#subscribe', as: 'subscribe'
-  get 'unsubscribe/:id', to: 'users#unsubscribe', as: 'unsubscribe'
+  # get 'subscribe/:id', to: 'users#subscribe', as: 'subscribe'
+  # get 'unsubscribe/:id', to: 'users#unsubscribe', as: 'unsubscribe'
   get 'feed', to: 'users#news', as: 'feed'
 
   # post
-  resources :posts, except: [:edit, :update]
+  resources :posts, except: [:edit, :update] do
+    member do
+      post :like
+      post :unlike
+    end
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
