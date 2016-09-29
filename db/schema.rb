@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160929100437) do
+ActiveRecord::Schema.define(version: 20160929124922) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -18,7 +18,16 @@ ActiveRecord::Schema.define(version: 20160929100437) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
-    t.text     "likes"
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer  "follower_id"
+    t.integer  "followed_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,7 +38,6 @@ ActiveRecord::Schema.define(version: 20160929100437) do
     t.string   "password_digest"
     t.integer  "role",            default: 0
     t.integer  "status",          default: 0
-    t.text     "feed"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

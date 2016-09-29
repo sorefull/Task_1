@@ -10,7 +10,6 @@
 #  password_digest :string
 #  role            :integer          default("user")
 #  status          :integer          default("normal")
-#  feed            :text
 #
 
 require 'test_helper'

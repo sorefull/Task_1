@@ -3,10 +3,11 @@
 <table>
   <thead>
     <tr>
-      <th>Username </th>
-      <th>Post count </th>
-      <th>Subscribes count</th>
-      <th>Role (admin/user) </th>
+      <th>Username |</th>
+      <th>Post count |</th>
+      <th>Follows |</th>
+      <th>Followers count |</th>
+      <th>Role (admin/user) |</th>
       <th>Status (blocked/normal) </th>
     </tr>
   </thead>
@@ -16,11 +17,12 @@
       <tr>
         <td><%= link_to user.name, user %></td>
         <td><%= user.posts.count %></td>
-        <td><%= user.subscribers.count %></td>
+        <td><%= user.following.count %></td>
+        <td><%= user.followers.count %></td>
         <td><%= user.role %></td>
         <td><%= user.status %></td>
-        <% unless current_user == user%><td><%= link_to 'Change role', chenge_role_path(user), style: 'color:green;' %></td>
-        <td><%= link_to 'Change status', chenge_status_path(user), style: 'color:blue;' %></td>
+        <% unless current_user == user%><td><%= link_to 'Change role', chenge_role_path(user), method: :post, style: 'color:green;' %></td>
+        <td><%= link_to 'Change status', chenge_status_path(user), method: :post, style: 'color:blue;' %></td>
         <td><%= link_to "Delete", user, method: :delete, data: { confirm: "Are you sure?" }, style: 'color:red;' %></td><% end %>
       </tr>
     <% end %>

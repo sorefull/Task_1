@@ -10,7 +10,6 @@
 #  password_digest :string
 #  role            :integer          default("user")
 #  status          :integer          default("normal")
-#  feed            :text
 #
 
 class User < ApplicationRecord
@@ -24,7 +23,7 @@ class User < ApplicationRecord
   # validates :password, presence: true, length: { minimum: 6 }
 
   # Posts
-  has_many :posts
+  has_many :posts, dependent: :destroy
 
   #admin
   enum role: [:user, :admin] #[:moderator, :owner, etc]
@@ -33,37 +32,31 @@ class User < ApplicationRecord
   enum status: [:normal, :blocked]
 
   # folowing
-  serialize :feed, Array
+  has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
 
-  def subscribe!(user)
-    unless self.feed.include? user.id
-      self.feed << user.id
-      self.save
-      true
-    else
-      false
-    end
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "followed_id",
+                                   dependent:   :destroy
+
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
+
+  # Follows a user.
+  def follow(other_user)
+    active_relationships.create(followed_id: other_user.id)
   end
 
-  def subscribers
-    User.find(self.feed)
+  # Unfollows a user.
+  def unfollow(other_user)
+    active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
-  def unsubscribe!(user)
-    if self.feed.include? user.id
-      self.feed.delete user.id
-      self.save
-      true
-    else
-      false
-    end
-  end
-
-  def destroy_user
-    User.all.each do |e_user|
-      e_user.unsubscribe! self
-    end
-    self.destroy
+  # Returns true if the current user is following the other user.
+  def following?(other_user)
+    following.include?(other_user)
   end
 
 end

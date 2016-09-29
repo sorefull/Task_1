@@ -2,8 +2,8 @@
   <%= link_to "Welcome", welcome_path, style: 'color:blue;' %> |
   <%= link_to "All posts", posts_path, style: 'color:blue;' %> |
   <% if logged_in? %>
-    <%= link_to "Feed", feed_path, style: 'color:green;' %> |
     <%= link_to "Profile", current_user, style: 'color:green;' %> |
+    <%= link_to "My Feed", feed_users_path, style: 'color:green;' %> |
     <%= link_to "New post", new_post_path, style: 'color:green;' %> |
     <%= link_to "Log out", logout_path, method: :delete, style: 'color:red;' %> |
     <% if admin_logged_in? %>
@@ -11,7 +11,7 @@
     <% end %>
   <% else %>
     <%= link_to "Log in", login_path, style: 'color:blue;' %> |
-    <%= link_to "Sign up", signup_path, style: 'color:blue;' %> |
+    <%= link_to "Sign up", signup_users_path, style: 'color:blue;' %> |
   <% end %>
   <%= link_to "About", about_path, style: 'color:blue;' %>
 </div>

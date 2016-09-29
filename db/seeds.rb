@@ -11,39 +11,14 @@ admin = User.create!(name: :admin,
             password: 'adminadmin',
             password_confirmation: 'adminadmin',
             role: 1)
-admin.posts.create!(title: 'admin post', body: 'admins post body')
+admin.posts.create!(title: 'Title of admin post', body: 'Body of admin post')
 
-user1 = User.create!(name: :user1,
-            email: 'user1@example.com',
-            password: 'useruser',
-            password_confirmation: 'useruser',
-            role: 0)
-user1.posts.create!(title: :title1, body: :body1)
-user1.posts.create!(title: :title2, body: :body2)
-user1.posts.create!(title: :title3, body: :body4)
+user = User.create!(name: :user1, email: 'user1@example.com', password: '11223654', password_confirmation: '11223654')
+user.posts.create!(title: 'Title of user post', body: 'Body of user post')
 
-user2 = User.create!(name: :user2,
-            email: 'user2@example.com',
-            password: 'useruser',
-            password_confirmation: 'useruser',
-            role: 0)
-user2.posts.create!(title: :title4, body: :body4)
-user2.posts.create!(title: :title5, body: :body5)
-user2.posts.create!(title: :title6, body: :body6)
+user2 = User.create!(name: :user2, email: 'user2@example.com', password: '11223654', password_confirmation: '11223654')
+user.posts.create!(title: 'Title of user2 post', body: 'Body of user2 post')
 
-user1.subscribe! admin
-user1.subscribe! user2
-user2.subscribe! admin
-admin.subscribe! user2
-
-user1.posts.find(2).liked_by! admin
-user1.posts.find(2).liked_by! user1
-user1.posts.find(2).liked_by! user2
-
-user1.posts.find(3).liked_by! admin
-user1.posts.find(2).liked_by! user1
-user1.posts.find(1).liked_by! user2
-
-user2.posts.find(4).liked_by! admin
-user2.posts.find(6).liked_by! user1
-user2.posts.find(5).liked_by! user2
+user.follow admin
+user2.follow admin
+user2.follow user

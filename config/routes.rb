@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   # admin
   get 'users', to: 'admins#index', as: 'users'
   delete 'users/:id', to: 'admins#destroy'
-  get 'chenge/:id', to: 'admins#chenge_role', as: 'chenge_role'
-  get 'block/:id', to: 'admins#chenge_status', as: 'chenge_status'
+  post 'chenge/:id', to: 'admins#chenge_role', as: 'chenge_role'
+  post 'block/:id', to: 'admins#chenge_status', as: 'chenge_status'
 
   # welcome
   get '/', to: 'welcome#index', as: 'welcome'
@@ -16,24 +16,19 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   # user
-  resources :users, except: [:index, :edit, :update, :destroy] do
+  resources :users, except: [:index, :edit, :update, :destroy, :new] do
     member do
-      post :subscribe
-      post :unsubscribe
+      get :following, :followers
+      post :follow, :unfollow
+    end
+    collection do
+      get :feed
+      get :signup, to: 'users#new'
     end
   end
-  get 'signup', to: 'users#new'
-  # get 'subscribe/:id', to: 'users#subscribe', as: 'subscribe'
-  # get 'unsubscribe/:id', to: 'users#unsubscribe', as: 'unsubscribe'
-  get 'feed', to: 'users#news', as: 'feed'
 
   # post
-  resources :posts, except: [:edit, :update] do
-    member do
-      post :like
-      post :unlike
-    end
-  end
+  resources :posts, except: [:edit, :update]
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

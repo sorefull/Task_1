@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       log_in @user
       redirect_to @user
     else
-      redirect_to signup_path, alert: @user.errors
+      redirect_to signup_users_path, alert: @user.errors
     end
   end
 
@@ -18,38 +18,32 @@ class UsersController < ApplicationController
     @posts = @user.posts
   end
 
-  def subscribe
+  def follow
     user = User.find(params[:id])
-    if !logged_in?
-      redirect_to login_path, alert: "Login before!"
+    if current_user.following? user
+      redirect_to user, alert: "You alredy follow #{user.name}!"
     elsif current_user == user
-      redirect_to user_path(user), alert: "You can't subscribe yourself!"
-    elsif current_user.subscribe! user
-      redirect_to user_path(user), notice: "You subscribed #{user.name} sucessfully!"
+      redirect_to user, alert: "You can't follw yourself!"
     else
-      redirect_to user_path(user), alert: "You alredy subscribe #{user.name}!"
+      current_user.follow user
+      redirect_to user, notice: 'You followed sucessfully!'
     end
   end
 
-  def unsubscribe
+  def unfollow
     user = User.find(params[:id])
-    if !logged_in?
-      redirect_to login_path, alert: "Login before!"
+    if !(current_user.following? user)
+      redirect_to user, alert: "You didn't even started to follow #{user.name}!"
     elsif current_user == user
-      redirect_to user_path(user), alert: "You can't unsubscribe yourself!"
-    elsif current_user.unsubscribe! user
-      redirect_to user_path(user), alert: "You unsubscribed #{user.name} sucessfully!"
+      redirect_to user, alert: "You can't unfollw yourself!"
     else
-      redirect_to user_path(user), alert: "You don't even start subscribing #{user.name}!"
+      current_user.unfollow user
+      redirect_to user, notice: 'You unfollowed sucessfully!'
     end
   end
 
-  def news
-    if logged_in?
-      @posts = Post.where(user_id: current_user&.subscribers)
-    else
-      redirect_to login_path, alert: 'You need to log in!'
-    end
+  def feed
+    @posts = Post.where(user_id: current_user.following)
   end
 
   private

@@ -4,20 +4,29 @@ class PostsController < ApplicationController
   before_action :owner?, only: :destroy
   before_action :can?, only: [:new, :create, :destroy]
 
+  # GET /posts
+  # GET /posts.json
   def index
     @posts = Post.all
   end
 
+  # GET /posts/1
+  # GET /posts/1.json
   def show
   end
 
+  # GET /posts/new
   def new
     @post = Post.new
   end
 
+  # POST /posts
+  # POST /posts.json
   def create
     @post = current_user.posts.new(post_params)
+
     respond_to do |format|
+      # binding.pry
       if @post.save
         format.html { redirect_to posts_path, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
@@ -28,6 +37,8 @@ class PostsController < ApplicationController
     end
   end
 
+  # DELETE /posts/1
+  # DELETE /posts/1.json
   def destroy
     @post.destroy
     respond_to do |format|
@@ -36,47 +47,13 @@ class PostsController < ApplicationController
     end
   end
 
-  def like
-    post = Post.find(params[:id])
-    if !logged_in?
-      redirect_to login_path, alert: "Login before!"
-    elsif post.liked_by! current_user
-      redirect_to post, notice: "You liked #{post.title} sucessfully!"
-    else
-      redirect_to post, alert: "You alredy liked #{post.title}!"
-    end
-  end
-
-  def unlike
-    post = Post.find(params[:id])
-    if !logged_in?
-      redirect_to login_path, alert: "Login before!"
-    elsif post.unliked_by! current_user
-      redirect_to post, notice: "You unliked #{post.title} sucessfully!"
-    else
-      redirect_to post, alert: "You alredy liked #{post.title}!"
-    end
-  end
-
-  # def subscribe
-  #   user = User.find(params[:id])
-  #   if !logged_in?
-  #     redirect_to login_path, alert: "Login before!"
-  #   elsif current_user == user
-  #     redirect_to user_path(user), alert: "You can't subscribe yourself!"
-  #   elsif current_user.subscribe! user
-  #     redirect_to user_path(user), notice: "You subscribed #{user.name} sucessfully!"
-  #   else
-  #     redirect_to user_path(user), alert: "You alredy subscribe #{user.name}!"
-  #   end
-  # end
-
   private
-
+    # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
     end
 
+    # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:title, :body)
     end
@@ -88,7 +65,8 @@ class PostsController < ApplicationController
     end
 
     def owner?
-      unless current_user == @post.user
+      set_user
+      unless ( current_user == @post.user ) or ( current_user.admin? )
         log_out
         redirect_to login_path, alert: 'Log in before!'
       end
