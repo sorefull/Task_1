@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   # user
   resources :users, except: [:index, :edit, :update, :destroy]
   get 'signup', to: 'users#new'
+  get 'subscribe/:id', to: 'users#subscribe', as: 'subscribe'
+  get 'unsubscribe/:id', to: 'users#unsubscribe', as: 'unsubscribe'
+  get 'feed', to: 'users#news', as: 'feed'
 
   # post
   resources :posts, except: [:edit, :update]

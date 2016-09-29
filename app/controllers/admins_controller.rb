@@ -4,12 +4,12 @@ class AdminsController < ApplicationController
   def index
     @users = User.all
   end
-  
+
   def destroy
     @user = User.find(params[:id])
     unless @user == current_user
       name = @user.name
-      @user.destroy
+      @user.destroy_user
       redirect_to users_path, alert: "You sucessfully deleted user '#{name}'"
     else
       redirect_to users_path, alert: "You can't delete yourself!"

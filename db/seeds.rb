@@ -11,3 +11,15 @@ User.create(name: :admin,
             password: 'adminadmin',
             password_confirmation: 'adminadmin',
             role: 1)
+
+User.create(name: :user1,
+            email: 'user1@example.com',
+            password: 'useruser',
+            password_confirmation: 'useruser',
+            role: 0)
+
+User.create(name: :user2,
+            email: 'user2@example.com',
+            password: 'useruser',
+            password_confirmation: 'useruser',
+            role: 0)
