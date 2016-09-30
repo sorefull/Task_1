@@ -13,6 +13,15 @@
   <%= @post.body %>
 </p>
 
+<p>
+  Got (<%= @post.likes.count %>) likes!<br>
+<% if logged_in? %><% if @post.liked? current_user %>
+<%= link_to 'Unlike', unlike_post_path(@post), method: :post, style: 'color:blue;' %>
+<% else %>
+<%= link_to 'Like', like_post_path(@post), method: :post, style: 'color:blue;' %>
+<% end %><% end %>
+</p>
+
 <% if current_user == @post.user %><p>
   <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' } %>
 </p><% end %>

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :like, :unlike]
   before_action :set_user, only: [:new, :create]
   before_action :owner?, only: :destroy
   before_action :can?, only: [:new, :create, :destroy]
@@ -44,6 +44,22 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def like
+    if current_user.likes_this(@post)
+      redirect_to @post, notice: 'You liked successfully!'
+    else
+      redirect_to @post, alert: 'You alredy liked!'
+    end
+  end
+
+  def unlike
+    if current_user.unlikes_this(@post)
+      redirect_to @post, notice: 'You unliked successfully!'
+    else
+      redirect_to @post, alert: "You don't even likedliked!"
     end
   end
 

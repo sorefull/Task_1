@@ -28,7 +28,11 @@ Rails.application.routes.draw do
   end
 
   # post
-  resources :posts, except: [:edit, :update]
+  resources :posts, except: [:edit, :update] do
+    member do
+      post :like, :unlike
+    end
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

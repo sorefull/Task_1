@@ -4,5 +4,7 @@ json.author do
   json.role post.user.role
   json.autor_url user_url(post.user, format: :json)
 end
-json.extract! post, :title, :body, :created_at
+json.extract! post, :title
+json.likes post.likes.count
+json.extract! post, :body, :created_at
 json.url post_url(post, format: :json)

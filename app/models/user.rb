@@ -15,7 +15,7 @@
 class User < ApplicationRecord
   # Registration autorization
   before_save { self.email = email.downcase }
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 25 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence:   true, length: { maximum: 255 },
                     format:     { with: VALID_EMAIL_REGEX },uniqueness: { case_sensitive: false }
@@ -58,5 +58,26 @@ class User < ApplicationRecord
   def following?(other_user)
     following.include?(other_user)
   end
+
+  # likes
+  has_many :likes
+  # too fat method
+  def got_likes
+    count = 0
+    posts.each do |post|
+      count += post.likes.count
+    end
+    count
+  end
+
+  def likes_this(post)
+    likes.build(likable_id: post.id, likable_type: post.class.to_s)
+    save
+  end
+
+  def unlikes_this(post)
+    likes.where(likable_id: post.id, likable_type: post.class.to_s).first.destroy
+    save
+ end
 
 end

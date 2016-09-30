@@ -1,5 +1,5 @@
 <%= link_to 'Get JSON', user_url(@user, format: :json), style: 'color:blue;' %>
-<h1><%= @user.email %><% if @user.admin? %> [Admin]<% end %><% if @user.blocked? %> [BLOCKED]<% end %></h1>
+<h1><%= @user.name %><% if @user.admin? %> [Admin]<% end %><% if @user.blocked? %> [BLOCKED]<% end %></h1>
 
 <% unless current_user == @user %>
   <% unless current_user.following? @user %>
@@ -23,7 +23,7 @@
 <% else %><h3>Posts:</h3>
 <ul>
 <% @user.posts.each do |post| %>
-<li><%= link_to post.title, post %></li>
+<li><%= link_to post.title, post %> Got (<%= post.likes.count %>) likes!</li>
 <% end %>
 </ul>
 <% end %>
