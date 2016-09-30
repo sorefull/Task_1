@@ -9,6 +9,7 @@
       <th>Followers count |</th>
       <th>Liked (posts) |</th>
       <th>Was liked (times) |</th>
+      <th>Social |</th>
       <th>Role (admin/user) |</th>
       <th>Status (blocked/normal) </th>
     </tr>
@@ -23,6 +24,7 @@
         <td><%= user.followers.count %></td>
         <td><%= user.likes.count %></td>
         <td><%= user.got_likes %></td>
+        <td><%= user.provider %></td>
         <td><%= user.role %></td>
         <td><%= user.status %></td>
         <% unless current_user == user%><td><%= link_to 'Change role', chenge_role_path(user), method: :post, style: 'color:green;' %></td>

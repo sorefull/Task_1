@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # session
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
+  get '/auth/:provider/callback', to: 'sessions#create_fb'
   delete '/logout',  to: 'sessions#destroy'
 
   # user

@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :set_user, only: :create_fb
+
   def new
   end
 
@@ -18,5 +20,23 @@ class SessionsController < ApplicationController
   def destroy
     log_out
     redirect_to welcome_path, notice: 'You loged out'
+  end
+
+  def create_fb
+    @user.update(name: auth_hash['info']['name'],
+                email: auth_hash['info']['email'],
+                password: SecureRandom.urlsafe_base64)
+    log_in(@user)
+    redirect_to welcome_path
+  end
+
+  private
+
+  def set_user
+    @user = User.find_or_initialize_by(provider: auth_hash['provider'], provider_id: auth_hash['uid'])
+  end
+
+  def auth_hash
+   request.env['omniauth.auth']
   end
 end

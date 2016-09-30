@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :auth?, only: [:follow, :unfollow, :feed]
   def new
     @user = User.new
   end
@@ -47,6 +48,12 @@ class UsersController < ApplicationController
   end
 
   private
+  def auth?
+    unless logged_in?
+      redirect_to login_path, alert: 'Log in before!'
+    end
+  end
+
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end

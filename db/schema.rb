@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930092919) do
+ActiveRecord::Schema.define(version: 20160930125133) do
 
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 20160930092919) do
     t.string   "password_digest"
     t.integer  "role",            default: 0
     t.integer  "status",          default: 0
+    t.string   "provider"
+    t.string   "provider_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
