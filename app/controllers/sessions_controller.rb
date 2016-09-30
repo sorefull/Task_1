@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :set_user, only: :create_fb
+  before_action :set_user, only: :create_social
 
   def new
   end
@@ -22,10 +22,15 @@ class SessionsController < ApplicationController
     redirect_to welcome_path, notice: 'You loged out'
   end
 
-  def create_fb
+  def create_social
     @user.update(name: auth_hash['info']['name'],
-                email: auth_hash['info']['email'],
                 password: SecureRandom.urlsafe_base64)
+    if auth_hash['provider'] == "facebook"
+      @user.update(email: auth_hash['info']['email'])
+    elsif auth_hash['provider'] == "twitter"
+      @user.update(email: Faker::Internet.email)
+    end
+    binding.pry
     log_in(@user)
     redirect_to welcome_path
   end

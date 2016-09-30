@@ -1,5 +1,5 @@
 json.array! @users do |user|
-  json.extract! user, :id, :name, :status
+  json.extract! user, :id, :provider, :name, :status
   json.post_count user.posts.count
   json.likes user.likes.count
   json.was_liked user.got_likes

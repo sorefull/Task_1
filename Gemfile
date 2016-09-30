@@ -32,6 +32,8 @@ gem 'awesome_print', '~> 1.7'
 gem 'settingslogic'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'faker'
 gem "omniauth-google-oauth2"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
