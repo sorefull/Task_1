@@ -1,7 +1,10 @@
-<%= link_to 'Get JSON', feed_users_url(format: :json), style: 'color:blue;' %>
+<!-- <%= link_to 'Get JSON', feed_users_url(format: :json), style: 'color:blue;' %> -->
+<p>
+  sorry, no json yet
+</p>
 <h1>Feed</h1>
 
-<% unless @posts.count > 0 %><h2>Sorry no posts yet.</h2>
+<% unless @posts && @posts.count > 0 %><h2>Sorry no posts yet.</h2>
 <% else %><table>
   <thead>
     <tr>

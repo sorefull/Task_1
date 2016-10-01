@@ -1,4 +1,4 @@
-<%= link_to 'Get JSON', user_url(@user, format: :json), style: 'color:blue;' %>
+<%= link_to 'Get JSON', api_user_url(@user), style: 'color:blue;' %>
 <h1><%= @user.name %><% if @user.admin? %> [Admin]<% end %><% if @user.blocked? %> [BLOCKED]<% end %></h1>
 
 <% if logged_in? && current_user != @user %>

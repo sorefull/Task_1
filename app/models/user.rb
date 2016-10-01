@@ -17,6 +17,7 @@
 class User < ApplicationRecord
   # Registration autorization
   before_save { self.email = email.downcase }
+  before_create :set_auth_token
   validates :name, presence: true, length: { maximum: 25 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence:   true, length: { maximum: 255 },
@@ -80,6 +81,17 @@ class User < ApplicationRecord
   def unlikes_this(post)
     likes.where(likable_id: post.id, likable_type: post.class.to_s).first.destroy
     save
- end
+  end
+
+  # APIs
+  private
+  def set_auth_token
+    return if auth_token.present?
+    self.auth_token = generate_auth_token
+  end
+
+  def generate_auth_token
+    SecureRandom.uuid.gsub(/\-/,'')
+  end
 
 end

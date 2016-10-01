@@ -35,5 +35,17 @@ Rails.application.routes.draw do
     end
   end
 
+  # APIs
+  namespace :api, defaults: { format: :json } do
+    get 'users', to: 'admins#index', as: 'users'
+    resources :posts, only: [:index, :show]
+    resources :users, only: :show do
+      collection do
+        get :sign_in
+        get :feed
+      end
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

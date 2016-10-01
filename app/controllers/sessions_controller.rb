@@ -30,7 +30,6 @@ class SessionsController < ApplicationController
     elsif auth_hash['provider'] == "twitter"
       @user.update(email: Faker::Internet.email)
     end
-    binding.pry
     log_in(@user)
     redirect_to welcome_path
   end
