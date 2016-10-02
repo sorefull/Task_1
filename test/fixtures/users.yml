@@ -12,6 +12,7 @@
 #  status          :integer          default("normal")
 #  provider        :string
 #  provider_id     :string
+#  auth_token      :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

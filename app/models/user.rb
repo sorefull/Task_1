@@ -12,17 +12,19 @@
 #  status          :integer          default("normal")
 #  provider        :string
 #  provider_id     :string
+#  auth_token      :string
 #
 
 class User < ApplicationRecord
   # Registration autorization
-  before_save { self.email = email.downcase }
+  before_save { self.email = email.downcase  }
   before_create :set_auth_token
   validates :name, presence: true, length: { maximum: 25 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   validates :email, presence:   true, length: { maximum: 255 },
-                    format:     { with: VALID_EMAIL_REGEX },uniqueness: { case_sensitive: false }
+                    format:     { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   has_secure_password
+  validates :auth_token, presence: true, uniqueness: true
   # validates :password, presence: true, length: { minimum: 6 }
 
   # Posts
@@ -91,7 +93,9 @@ class User < ApplicationRecord
   end
 
   def generate_auth_token
-    SecureRandom.uuid.gsub(/\-/,'')
+    unicuetoken = SecureRandom.uuid.gsub(/\-/,'')
+    generate_auth_token if User.find_by(auth_token: unicuetoken)
+    unicuetoken
   end
 
 end

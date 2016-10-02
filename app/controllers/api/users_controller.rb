@@ -8,15 +8,20 @@ module Api
     end
 
     def feed
-      @posts = Post.where(user_id: current_user.following)
+      if current_user
+        @posts = Post.where(user_id: current_user.following)
+      else
+        render(json: { error: "Unauthorized."} , status: 401)
+      end 
     end
 
     def sign_in
        @user = User.find_by(name: params[:name])
-       if @user
-         render(json: @user.auth_token)
+       if @user && @user.authenticate(params[:password])
+         render(json: { auth_token: @user.auth_token,
+           instruction: "Now you can use your auth_token to get feed#{ ' and admin page' if @user.admin? }." })
        else
-         render(json: { error: 'Unauthorized!' })
+         render(json: { error: "Unauthorized."} , status: 401)
        end
     end
   end

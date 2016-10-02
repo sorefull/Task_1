@@ -12,6 +12,7 @@
 #  status          :integer          default("normal")
 #  provider        :string
 #  provider_id     :string
+#  auth_token      :string
 #
 
 require 'test_helper'

@@ -8,11 +8,11 @@ module Api
     end
 
     def authenticate!
-      render(json: { error: 'Unauthorized!' }) if current_user.blank?
+      render(json: { error: 'Unauthorized!' }, status: 401) if current_user&.blank?
     end
 
     def authenticate_admin!
-      render(json: { error: 'Unauthorized!' }) unless current_user.admin?
+      render(json: { error: 'Unauthorized!' }, status: 401) unless current_user&.admin?
     end
   end
 end
