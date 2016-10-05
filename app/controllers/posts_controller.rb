@@ -26,7 +26,6 @@ class PostsController < ApplicationController
     @post = current_user.posts.new(post_params)
 
     respond_to do |format|
-      # binding.pry
       if @post.save
         format.html { redirect_to posts_path, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
@@ -47,26 +46,20 @@ class PostsController < ApplicationController
     end
   end
 
-  def like
-    respond_to do |format|
-      if current_user.likes_this(@post)
-        format.html { redirect_to @post, notice: 'You liked successfully!' }
-        format.js
-      else
-        format.html { redirect_to @post, alert: 'You alredy liked!' }
-        format.js
-      end
+  def update
+    if params[:meth] == 'like'
+      result = current_user.likes_this(@post)
+    elsif params[:meth] == 'unlike'
+      result = current_user.unlikes_this(@post)
     end
-  end
-
-  def unlike
     respond_to do |format|
-      if current_user.unlikes_this(@post)
-        format.html { redirect_to @post, notice: 'You unliked successfully!' }
-        format.js
+      if result
+        format.html { redirect_to posts_path, notice: 'Post was successfully updated.' }
+        format.json { render :show, status: :created, location: @post }
+        format.js { render :post }
       else
-        format.html { redirect_to @post, alert: "You don't even likedliked!" }
-        format.js
+        format.html { render :new, alert: @post.errors }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
   end

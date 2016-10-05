@@ -1,0 +1,24 @@
+<p>
+  <strong>Username:</strong>
+  <%= link_to @post.user.name, @post.user %>
+</p>
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Body:</strong><br>
+  <%= @post.body %>
+</p>
+
+<p>
+  Got (<%= @post.likes.count %>) likes!
+  <% if logged_in? %>
+    <% if @post.liked? current_user %>
+      <%= link_to 'Unlike', [@post, meth: :unlike], method: :patch, remote: true, style: 'color:blue;' %>
+    <% else %>
+      <%= link_to 'Like', [@post, meth: :like], method: :patch, remote: true, style: 'color:blue;' %>
+  <% end %>
+</p>
+<% end %>

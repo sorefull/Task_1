@@ -1,27 +1,6 @@
-<p>
-  <strong>Username:</strong>
-  <%= link_to @post.user.name, @post.user %>
-</p>
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
-
-<p>
-  <strong>Body:</strong><br>
-  <%= @post.body %>
-</p>
-
-<p>
-  <p class='likes_count'>
-    Got (<%= @post.likes.count %>) likes!
-  </p>
-<% if logged_in? %><% if @post.liked? current_user %>
-  <%= link_to 'Unlike', unlike_post_path(@post), method: :post, remote: true, style: 'color:blue;' %>
-<% else %>
-  <%= link_to 'Like', like_post_path(@post), method: :post, remote: true, style: 'color:blue;' %>
-<% end %><% end %>
-</p>
+<div id="show_post">
+  <%= render @post %>
+</div>
 
 <% if logged_in? && (current_user == @post.user or current_user.admin?) %><p>
   <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' } %>

@@ -90,14 +90,26 @@ class User < ApplicationRecord
   end
 
   def likes_this(post)
-    likes.build(likable_id: post.id, likable_type: post.class.to_s)
-    save
+    unless post.liked? self
+      likes.build(likable_id: post.id, likable_type: post.class.to_s)
+      save
+    else
+      false
+    end
   end
 
   def unlikes_this(post)
-    likes.where(likable_id: post.id, likable_type: post.class.to_s).first.destroy
-    save
+    if post.liked? self
+      likes.where(likable_id: post.id, likable_type: post.class.to_s).first.destroy
+      save
+    else
+      false
+    end
   end
+
+  # def liked_this?(post)
+  #   likes.where(likable_id: post.id, likable_type: post.class.to_s).first.present?
+  # end
 
   # APIs
   def set_auth_token

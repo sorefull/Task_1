@@ -2,9 +2,9 @@
 
 <% if logged_in? && current_user != @user %>
   <% if current_user.following? @user %>
-    <%= link_to 'Unfollow', unfollow_user_path(@user), method: :post, style: 'color:red;' %>
+    <%= link_to 'Unfollow', [@user, meth: :unfollow], method: :patch, style: 'color:red;' %>
   <% else %>
-    <%= link_to 'Follow', follow_user_path(@user), method: :post, style: 'color:blue;' %>
+    <%= link_to 'Follow', [@user, meth: :follow], method: :patch, style: 'color:blue;' %>
   <% end %>
 <% end %>
 

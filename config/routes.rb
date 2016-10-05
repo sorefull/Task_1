@@ -17,10 +17,6 @@ Rails.application.routes.draw do
 
   # user
   resources :users, except: [:index, :edit, :destroy, :new] do
-    member do
-      get :following, :followers
-      post :follow, :unfollow
-    end
     collection do
       get :feed
       get :signup, to: 'users#new'
@@ -28,11 +24,7 @@ Rails.application.routes.draw do
   end
 
   # post
-  resources :posts, except: [:edit, :update] do
-    member do
-      post :like, :unlike
-    end
-  end
+  resources :posts, except: [:edit]
 
   # APIs
   namespace :api, defaults: { format: :json } do

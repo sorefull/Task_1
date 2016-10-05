@@ -18,24 +18,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def follow
-    user = User.find(params[:id])
-    message = current_user.follow user
-    redirect_to user, notice: message
-  end
-
-  def unfollow
-    user = User.find(params[:id])
-    message = current_user.unfollow user
-    redirect_to user, notice: message
-  end
-
   def update
-    binding.pry
     user = User.find(params[:id])
-    if params[:to] == 'follow'
+    if params[:meth] == 'follow'
       message = current_user.follow user
-    elsif params[:to] == 'unfollow'
+    elsif params[:meth] == 'unfollow'
       message = current_user.unfollow user
     end
     redirect_to user, notice: message
