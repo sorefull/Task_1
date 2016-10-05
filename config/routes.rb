@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
 
   # admin
-  get 'users', to: 'admins#index', as: 'users'
-  delete 'users/:id', to: 'admins#destroy'
-  post 'chenge/:id', to: 'admins#chenge_role', as: 'chenge_role'
-  post 'block/:id', to: 'admins#chenge_status', as: 'chenge_status'
+  namespace :admin do
+    resources :users, except: [:show, :new, :create, :edit]
+  end
 
   # welcome
   get '/', to: 'welcome#index', as: 'welcome'
@@ -17,7 +16,7 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
 
   # user
-  resources :users, except: [:index, :edit, :update, :destroy, :new] do
+  resources :users, except: [:index, :edit, :destroy, :new] do
     member do
       get :following, :followers
       post :follow, :unfollow

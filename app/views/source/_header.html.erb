@@ -7,7 +7,7 @@
     <%= link_to "New post", new_post_path, style: 'color:green;' %> |
     <%= link_to "Log out", logout_path, method: :delete, style: 'color:red;' %> |
     <% if admin_logged_in? %>
-      <%= link_to "Admin Page", users_path, style: 'color:red;' %> |
+      <%= link_to "Admin Page", admin_users_path, style: 'color:red;' %> |
     <% end %>
   <% else %>
     <%= link_to "Log in", login_path, style: 'color:green;' %> |
@@ -17,14 +17,3 @@
   <% end %>
   <%= link_to "About", about_path, style: 'color:blue;' %>
 </div>
-
-
-<!-- (b) => blue; -->
-<!-- (r) => red; -->
-<!-- (g) => green; -->
-
-<!-- Loged in -->
-<!-- Welcome(b) | All posts(b) | Profile(g) | New post(g) | Log out(r) | About(b) -->
-
-<!-- Loged out -->
-<!-- Welcome(b) | All posts(b) | Log in(b) | Sign up(b) | About(b) -->

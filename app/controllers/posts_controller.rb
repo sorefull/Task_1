@@ -48,18 +48,26 @@ class PostsController < ApplicationController
   end
 
   def like
-    if current_user.likes_this(@post)
-      redirect_to @post, notice: 'You liked successfully!'
-    else
-      redirect_to @post, alert: 'You alredy liked!'
+    respond_to do |format|
+      if current_user.likes_this(@post)
+        format.html { redirect_to @post, notice: 'You liked successfully!' }
+        format.js
+      else
+        format.html { redirect_to @post, alert: 'You alredy liked!' }
+        format.js
+      end
     end
   end
 
   def unlike
-    if current_user.unlikes_this(@post)
-      redirect_to @post, notice: 'You unliked successfully!'
-    else
-      redirect_to @post, alert: "You don't even likedliked!"
+    respond_to do |format|
+      if current_user.unlikes_this(@post)
+        format.html { redirect_to @post, notice: 'You unliked successfully!' }
+        format.js
+      else
+        format.html { redirect_to @post, alert: "You don't even likedliked!" }
+        format.js
+      end
     end
   end
 

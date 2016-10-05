@@ -16,31 +16,29 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts
   end
 
   def follow
     user = User.find(params[:id])
-    if current_user.following? user
-      redirect_to user, alert: "You alredy follow #{user.name}!"
-    elsif current_user == user
-      redirect_to user, alert: "You can't follw yourself!"
-    else
-      current_user.follow user
-      redirect_to user, notice: 'You followed sucessfully!'
-    end
+    message = current_user.follow user
+    redirect_to user, notice: message
   end
 
   def unfollow
     user = User.find(params[:id])
-    if !(current_user.following? user)
-      redirect_to user, alert: "You didn't even started to follow #{user.name}!"
-    elsif current_user == user
-      redirect_to user, alert: "You can't unfollw yourself!"
-    else
-      current_user.unfollow user
-      redirect_to user, notice: 'You unfollowed sucessfully!'
+    message = current_user.unfollow user
+    redirect_to user, notice: message
+  end
+
+  def update
+    binding.pry
+    user = User.find(params[:id])
+    if params[:to] == 'follow'
+      message = current_user.follow user
+    elsif params[:to] == 'unfollow'
+      message = current_user.unfollow user
     end
+    redirect_to user, notice: message
   end
 
   def feed

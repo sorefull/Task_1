@@ -9,8 +9,12 @@
       <th>Liked (posts) |</th>
       <th>Was liked (times) |</th>
       <th>Social |</th>
-      <th>Role (admin/user) |</th>
-      <th>Status (blocked/normal) </th>
+      <th>User |</th>
+      <th>Admin |</th>
+      <th>Normal |</th>
+      <th>Blocked |</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -24,14 +28,17 @@
         <td><%= user.likes.count %></td>
         <td><%= user.got_likes %></td>
         <td><%= user.provider %></td>
-        <td><%= user.role %></td>
-        <td><%= user.status %></td>
-        <% unless current_user == user%><td><%= link_to 'Change role', chenge_role_path(user), method: :post, style: 'color:green;' %></td>
-        <td><%= link_to 'Change status', chenge_status_path(user), method: :post, style: 'color:blue;' %></td>
-        <td><%= link_to "Delete", user, method: :delete, data: { confirm: "Are you sure?" }, style: 'color:red;' %></td><% end %>
+        <% unless current_user == user%>
+          <%= form_for [:admin, user] do |f| %>
+            <td><%= f.radio_button :role, :user%></td>
+            <td><%= f.radio_button :role, :admin%></td>
+            <td><%= f.radio_button :status, :normal%></td>
+            <td><%= f.radio_button :status, :blocked%></td>
+            <td><%= f.submit %></td>
+          <% end %>
+          <td><%= link_to "Delete", [:admin, user], method: :delete, data: { confirm: "Are you sure?" }, style: 'color:red;' %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>

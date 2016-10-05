@@ -19,4 +19,14 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
+
+  def social_update(user)
+    user.update(name: auth_hash['info']['name'], password: SecureRandom.urlsafe_base64)
+    if auth_hash['provider'] == "facebook"
+      user.update(email: auth_hash['info']['email'])
+    elsif auth_hash['provider'] == "twitter"
+      user.update(email: Faker::Internet.email)
+    end
+    user.set_auth_token
+  end
 end

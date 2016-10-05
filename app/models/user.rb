@@ -24,7 +24,7 @@ class User < ApplicationRecord
   validates :email, presence:   true, length: { maximum: 255 },
                     format:     { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :auth_token, presence: true, uniqueness: true
+  validates :auth_token, uniqueness: true
   # validates :password, presence: true, length: { minimum: 6 }
 
   # Posts
@@ -51,12 +51,26 @@ class User < ApplicationRecord
 
   # Follows a user.
   def follow(other_user)
-    active_relationships.create(followed_id: other_user.id)
+    if self.following? other_user
+      "You alredy follow #{other_user.name}!"
+    elsif self == other_user
+      "You can't follw yourself!"
+    else
+      active_relationships.create(followed_id: other_user.id)
+      'You followed sucessfully!'
+    end
   end
 
   # Unfollows a user.
   def unfollow(other_user)
-    active_relationships.find_by(followed_id: other_user.id).destroy
+    if !(self.following? other_user)
+      "You didn't even started to follow #{other_user.name}!"
+    elsif self == other_user
+      "You can't unfollw yourself!"
+    else
+      active_relationships.find_by(followed_id: other_user.id).destroy
+      'You unfollowed sucessfully!'
+    end
   end
 
   # Returns true if the current user is following the other user.
@@ -65,7 +79,7 @@ class User < ApplicationRecord
   end
 
   # likes
-  has_many :likes
+  has_many :likes, dependent: :destroy
   # too fat method
   def got_likes
     count = 0
@@ -86,7 +100,6 @@ class User < ApplicationRecord
   end
 
   # APIs
-  private
   def set_auth_token
     return if auth_token.present?
     self.auth_token = generate_auth_token
