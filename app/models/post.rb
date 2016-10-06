@@ -17,16 +17,16 @@ class Post < ApplicationRecord
 
   # votes
   has_many :votes, as: :votable
-  
-  def up_votes
-    votes.where(vote: :up)
+
+  def voted(user, meth)
+    case meth
+    when 'up', 'down'
+      user.votes_this! self, meth
+    when 'unvote'
+      user.unvotes_this! self
+    else
+      false
+    end
   end
 
-  def down_votes
-    votes.where(vote: :down)
-  end
-
-  def raiting
-    self.up_votes.count - self.down_votes.count
-  end
 end

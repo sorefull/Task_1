@@ -13,15 +13,15 @@
 </p>
 
 <p>
-  Got (<%= @post.up_votes.count %>) likes!<br>
-  Got (<%= @post.down_votes.count %>) dislikes!<br>
+  Got (<%= up_votes_of @post %>) likes!<br>
+  Got (<%= down_votes_of @post %>) dislikes!<br>
 
   <% if logged_in? %>
     <% if current_user.voted? @post %>
       <%= link_to 'Unvote!', [@post, meth: :unvote], method: :patch, remote: true, style: 'color:blue;' %>
     <% else %>
-      <%= link_to 'Like', [@post, meth: :like], method: :patch, remote: true, style: 'color:blue;' %>
-      <%= link_to 'Dislike', [@post, meth: :dislike], method: :patch, remote: true, style: 'color:blue;' %>
+      <%= link_to 'Like', [@post, meth: :up], method: :patch, remote: true, style: 'color:blue;' %>
+      <%= link_to 'Dislike', [@post, meth: :down], method: :patch, remote: true, style: 'color:blue;' %>
   <% end %>
 </p>
 <% end %>

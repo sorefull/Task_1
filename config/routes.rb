@@ -18,10 +18,12 @@ Rails.application.routes.draw do
   # user
   resources :users, except: [:index, :edit, :destroy, :new] do
     collection do
-      get :feed
       get :signup, to: 'users#new'
     end
   end
+
+  # feed
+  resources :feeds, only: :index
 
   # post
   resources :posts, except: [:edit]

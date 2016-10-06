@@ -52,24 +52,35 @@ class User < ApplicationRecord
   # Follows a user.
   def follow(other_user)
     if self.following? other_user
-      "You alredy follow #{other_user.name}!"
+      false
     elsif self == other_user
-      "You can't follw yourself!"
+      false
     else
       active_relationships.create(followed_id: other_user.id)
-      'You followed sucessfully!'
+      true
     end
   end
 
   # Unfollows a user.
   def unfollow(other_user)
     if !(self.following? other_user)
-      "You didn't even started to follow #{other_user.name}!"
+      false
     elsif self == other_user
-      "You can't unfollw yourself!"
+      false
     else
       active_relationships.find_by(followed_id: other_user.id).destroy
-      'You unfollowed sucessfully!'
+      true
+    end
+  end
+
+  def set_this_user_to(user, new_relation) # new_relation: [:follow, :unfollow]
+    case new_relation
+    when 'follow'
+      self.follow user
+    when 'unfollow'
+      self.unfollow user
+    else
+      false
     end
   end
 
@@ -79,24 +90,12 @@ class User < ApplicationRecord
   end
 
   # votes
+  # Votes polymrphic, so I keep likes_this! and so on here, in User model to DRY in future.
   has_many :votes, dependent: :destroy
 
-  # likes
-  # has_many :likes, dependent: :destroy
-  # too fat method
-
-  def likes_this!(resource)
-    unless self.voted? resource
-      votes.build(votable_id: resource.id, votable_type: resource.class.to_s, vote: :up)
-      save
-    else
-      false
-    end
-  end
-
-  def dislikes_this!(resource)
-    unless self.voted? resource
-      votes.build(votable_id: resource.id, votable_type: resource.class.to_s, vote: :down)
+  def votes_this!(resource, vote) # vote: [:up, :down], resource: [:post]
+    unless voted? resource
+      self.votes.build(votable_id: resource.id, votable_type: resource.class.to_s, vote: vote)
       save
     else
       false
@@ -104,7 +103,7 @@ class User < ApplicationRecord
   end
 
   def unvotes_this!(resource)
-    if self.voted? resource
+    if voted? resource
       votes.where(votable_id: resource.id, votable_type: resource.class.to_s).first.destroy
       save
     else

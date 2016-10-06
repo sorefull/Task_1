@@ -20,16 +20,8 @@ class UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    if params[:meth] == 'follow'
-      message = current_user.follow user
-    elsif params[:meth] == 'unfollow'
-      message = current_user.unfollow user
-    end
-    redirect_to user, notice: message
-  end
-
-  def feed
-    @posts = Post.where(user_id: current_user.following)
+    current_user.set_this_user_to(user, params[:relation])
+    redirect_to user
   end
 
   private
