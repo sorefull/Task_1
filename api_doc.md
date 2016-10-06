@@ -6,17 +6,17 @@
 
 * **URL**
 
-  `/api/posts`
+`/api/posts`
 
 * **Method:**
 
-  `GET`
+`GET`
 
 * **Response:**
 
   * **Code:** 200 <br />
     **Content:**
-    ```
+    ```json
     [ {
     "id": 1,
     "author": {
@@ -39,23 +39,23 @@
 
 * **URL**
 
-  `/api/posts/:id`
+`/api/posts/:id`
 
 * **Method:**
 
-  `GET`
+`GET`
 
 *  **URL Params**
 
    **Required:**
 
-   `id=[integer]`
+`id=[integer]`
 
 * **Response:**
 
   * **Code:** 200 <br />
     **Content:**
-    ```
+    ```json
 {
   "id": 1,
   "author": {
@@ -77,24 +77,24 @@
 
 * **URL**
 
-  `/api/users/sign_in?name=[name]&password=[password]`
+`/api/users/sign_in?name=[name]&password=[password]`
 
 * **Method:**
 
-  `GET`
+`GET`
 
 *  **URL Params**
 
    **Required:**
 
-   `name=[string]`
-   `password=[string]`
+`name=[string]`
+ `password=[string]`
 
 * **Success Response:**
 
   * **Code:** 200 <br />
     **Content:**
-    ```
+    ```json
     {
   "auth_token": [token],
   "instruction": [insturctions]
@@ -104,9 +104,12 @@
 * **Error Response:**
 
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{
-  "error": "Unauthorized."
-}`
+    **Content:** 
+    ```json
+    {
+    "error": "Unauthorized."
+    }
+    ```
 
 
 **Users Feed**
@@ -115,23 +118,23 @@
 
 * **URL**
 
-  `/api/users/feed?auth_token=[auth_token]`
+`/api/users/feed?auth_token=[auth_token]`
 
 * **Method:**
 
-  `GET`
+`GET`
 
 *  **URL Params**
 
    **Required:**
 
-   `auth_token=[string]`
+`auth_token=[string]`
 
 * **Success Response:**
 
   * **Code:** 200 <br />
     **Content:**
-    ```
+    ```json
     [
   {
     "id": 2,
@@ -152,9 +155,12 @@
 * **Error Response:**
 
   * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{
-  "error": "Unauthorized."
-}`
+    **Content:** 
+    ```json
+    {
+    "error": "Unauthorized."
+    }
+    ```
 
 **Show User**
 ----
@@ -162,23 +168,23 @@
 
 * **URL**
 
-  `/api/users/:id`
+`/api/users/:id`
 
 * **Method:**
 
-  `GET`
+`GET`
 
 *  **URL Params**
 
    **Required:**
 
-   `id=[integer]`
+`id=[integer]`
 
 * **Success Response:**
 
   * **Code:** 200 <br />
     **Content:**
-    ```
+    ```json
     {
       "id": 1,
       "name": "admin",
@@ -219,23 +225,23 @@ Returns json data about users.
 
 * **URL**
 
-     `/api/users?auth_token=[auth_token]`
+`/api/users?auth_token=[auth_token]`
 
 * **Method:**
 
-     `GET`
+`GET`
 
 *  **URL Params**
 
       **Required:**
 
-      `auth_token=[string]`
+`auth_token=[string]`
 
 * **Success Response:**
 
      * **Code:** 200 <br />
        **Content:**
-       ```
+       ```json
        [
    {
      "id": 1,
@@ -264,8 +270,8 @@ Returns json data about users.
 
      * **Code:** 401 UNAUTHORIZED <br />
        **Content:**
-       ```
-       {
-  "error": "Unauthorized!"
-}
-       ```
+    ```json
+    {
+    "error": "Unauthorized."
+    }
+    ```
