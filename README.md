@@ -28,21 +28,21 @@
 ## Installation
 
 * Clone or download project and open it
-  ```
-  $ git clone https://github.com/sorefull/Task_1.git && cd Task_1
-  ```
+```bash
+$ git clone https://github.com/sorefull/Task_1.git && cd Task_1
+```
 * Install gems
-  ```
-  $ bundle Install
-  ```
+```bash
+$ bundle Install
+```
 * Create database (with seeds)
-  ```
-  $ rails db:migrate && rails db:seed
-  ```
+```bash
+$ rails db:migrate && rails db:seed
+```
 * Now you can serve application
-  ```
-  $ rails s
-  ```
+```bash
+$ rails s
+```
 
 ## Api
   [API Documentation](https://github.com/sorefull/Task_1/blob/master/api_doc.md)
