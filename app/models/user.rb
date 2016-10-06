@@ -78,38 +78,43 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  # votes
+  has_many :votes, dependent: :destroy
+
   # likes
-  has_many :likes, dependent: :destroy
+  # has_many :likes, dependent: :destroy
   # too fat method
-  def got_likes
-    count = 0
-    posts.each do |post|
-      count += post.likes.count
-    end
-    count
-  end
 
-  def likes_this(post)
-    unless post.liked? self
-      likes.build(likable_id: post.id, likable_type: post.class.to_s)
+  def likes_this!(resource)
+    unless self.voted? resource
+      votes.build(votable_id: resource.id, votable_type: resource.class.to_s, vote: :up)
       save
     else
       false
     end
   end
 
-  def unlikes_this(post)
-    if post.liked? self
-      likes.where(likable_id: post.id, likable_type: post.class.to_s).first.destroy
+  def dislikes_this!(resource)
+    unless self.voted? resource
+      votes.build(votable_id: resource.id, votable_type: resource.class.to_s, vote: :down)
       save
     else
       false
     end
   end
 
-  # def liked_this?(post)
-  #   likes.where(likable_id: post.id, likable_type: post.class.to_s).first.present?
-  # end
+  def unvotes_this!(resource)
+    if self.voted? resource
+      votes.where(votable_id: resource.id, votable_type: resource.class.to_s).first.destroy
+      save
+    else
+      false
+    end
+  end
+
+  def voted?(resource)
+    return votes.where(votable_id: resource.id, votable_type: resource.class.to_s).first.present?
+  end
 
   # APIs
   def set_auth_token

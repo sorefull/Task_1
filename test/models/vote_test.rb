@@ -1,18 +1,19 @@
 # == Schema Information
 #
-# Table name: likes
+# Table name: votes
 #
 #  id           :integer          not null, primary key
 #  user_id      :integer
+#  votable_id   :integer
+#  votable_type :string
+#  vote         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  likable_id   :integer
-#  likable_type :string
 #
 
 require 'test_helper'
 
-class LikeTest < ActiveSupport::TestCase
+class VoteTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

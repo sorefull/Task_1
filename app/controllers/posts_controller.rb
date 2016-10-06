@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :like, :unlike]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:new, :create]
   before_action :owner?, only: :destroy
   before_action :can?, only: [:new, :create, :destroy]
@@ -48,9 +48,11 @@ class PostsController < ApplicationController
 
   def update
     if params[:meth] == 'like'
-      result = current_user.likes_this(@post)
-    elsif params[:meth] == 'unlike'
-      result = current_user.unlikes_this(@post)
+      result = current_user.likes_this!(@post)
+    elsif params[:meth] == 'dislike'
+      result = current_user.dislikes_this!(@post)
+    elsif params[:meth] == 'unvote'
+      result = current_user.unvotes_this!(@post)
     end
     respond_to do |format|
       if result

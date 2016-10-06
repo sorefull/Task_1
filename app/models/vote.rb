@@ -1,19 +1,19 @@
 # == Schema Information
 #
-# Table name: likes
+# Table name: votes
 #
 #  id           :integer          not null, primary key
 #  user_id      :integer
+#  votable_id   :integer
+#  votable_type :string
+#  vote         :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  likable_id   :integer
-#  likable_type :string
 #
 
-class Like < ApplicationRecord
-  belongs_to :likable, polymorphic: true
+class Vote < ApplicationRecord
+  belongs_to :votable, polymorphic: true
   belongs_to :user
-  # belongs_to :post
-
+  
   validates :user_id, presence: true
 end

@@ -10,15 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161001122633) do
-
-  create_table "likes", force: :cascade do |t|
-    t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "likable_id"
-    t.string   "likable_type"
-  end
+ActiveRecord::Schema.define(version: 20161006075732) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -50,6 +42,16 @@ ActiveRecord::Schema.define(version: 20161001122633) do
     t.string   "provider_id"
     t.string   "auth_token"
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "votable_id"
+    t.string   "votable_type"
+    t.string   "vote"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id"
   end
 
 end
