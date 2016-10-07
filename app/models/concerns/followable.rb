@@ -14,43 +14,44 @@ module Followable
     has_many :followers, through: :passive_relationships, source: :follower
   end
 
-  # Follows a user.
-  def follow(other_user)
-    if self.following? other_user
+  # Follows an outer_resource.
+  def follow(outer_resource)
+    if self.following? outer_resource
       false
-    elsif self == other_user
+    elsif self == outer_resource
       false
     else
-      active_relationships.create(followed_id: other_user.id)
+      active_relationships.create(followed_id: outer_resource.id)
       true
     end
   end
 
-  # Unfollows a user.
-  def unfollow(other_user)
-    if !(self.following? other_user)
+  # Unfollows an outer_resource.
+  def unfollow(outer_resource)
+    if !(self.following? outer_resource)
       false
-    elsif self == other_user
+    elsif self == outer_resource
       false
     else
-      active_relationships.find_by(followed_id: other_user.id).destroy
+      active_relationships.find_by(followed_id: outer_resource.id).destroy
       true
     end
   end
 
-  def set_this_user_to(user, new_relation) # new_relation: [:follow, :unfollow]
+  # Creates a new relation [:follow, :unfollow] with outer_resource.
+  def new_relation_with(outer_resource, new_relation) # new_relation: [:follow, :unfollow]
     case new_relation
     when 'follow'
-      self.follow user
+      self.follow outer_resource
     when 'unfollow'
-      self.unfollow user
+      self.unfollow outer_resource
     else
       false
     end
   end
 
-  # Returns true if the current user is following the other user.
-  def following?(other_user)
-    following.include?(other_user)
+  # Returns true if self is following the outer_resource.
+  def following?(outer_resource)
+    following.include?(outer_resource)
   end
 end

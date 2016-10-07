@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    current_user.set_this_user_to(user, params[:relation])
+    current_user.new_relation_with(user, params[:relation])
     redirect_to user
   end
 
