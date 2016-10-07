@@ -37,15 +37,8 @@ class PostsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if current_user.votes_this! @post, params[:meth]
-        format.html { redirect_to posts_path, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :created, location: @post }
-        format.js { render :post }
-      else
-        format.html { render :new, alert: @post.errors }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if current_user.votes_this! @post, params[:meth]
+      render partial: 'post', locals: { post: @post }
     end
   end
 

@@ -1,5 +1,5 @@
-<div id="show_post">
-  <%= render @post %>
+<div class="show_post">
+  <%= render partial: 'post', locals: { post: @post } %>
 </div>
 
 <% if logged_in? && (current_user == @post.user or current_user.admin?) %><p>

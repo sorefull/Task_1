@@ -18,10 +18,10 @@
 
   <% if logged_in? %>
     <% if current_user.voted? @post %>
-      <%= link_to 'Unvote!', [@post, meth: :unvote], method: :patch, remote: true, style: 'color:blue;' %>
+      <%= link_to 'Unvote!', [@post, meth: :unvote], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
     <% else %>
-      <%= link_to 'Like', [@post, meth: :up], method: :patch, remote: true, style: 'color:blue;' %>
-      <%= link_to 'Dislike', [@post, meth: :down], method: :patch, remote: true, style: 'color:blue;' %>
+      <%= link_to 'Like', [@post, meth: :up], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
+      <%= link_to 'Dislike', [@post, meth: :down], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
   <% end %>
-</p>
 <% end %>
+</p>

@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  # params[:relation] : [:follow, :unfollow]
   def update
     user = User.find(params[:id])
     current_user.new_relation_with(user, params[:relation])
