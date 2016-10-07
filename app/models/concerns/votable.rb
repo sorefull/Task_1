@@ -9,19 +9,22 @@ module Votable
     return votes.where(votable_id: resource.id, votable_type: resource.class.to_s).first.present?
   end
 
-  def votes_this!(resource, vote) # vote: [:up, :down], resource: [:post]
-    unless voted? resource
-      self.votes.build(votable_id: resource.id, votable_type: resource.class.to_s, vote: vote)
-      save
-    else
-      false
-    end
-  end
-
-  def unvotes_this!(resource)
-    if voted? resource
-      votes.where(votable_id: resource.id, votable_type: resource.class.to_s).first.destroy
-      save
+  def votes_this!(resource, vote) # vote: [:up, :down, :unvote], resource: [:post]
+    case vote
+    when 'unvote'
+      if voted? resource
+        votes.where(votable_id: resource.id, votable_type: resource.class.to_s).first.destroy
+        save
+      else
+        false
+      end
+    when 'up', 'down'
+      unless voted? resource
+        self.votes.build(votable_id: resource.id, votable_type: resource.class.to_s, vote: vote)
+        save
+      else
+        false
+      end
     else
       false
     end

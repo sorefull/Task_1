@@ -38,7 +38,7 @@ class PostsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @post.voted(current_user, params[:meth])
+      if current_user.votes_this! @post, params[:meth]
         format.html { redirect_to posts_path, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :created, location: @post }
         format.js { render :post }

@@ -17,16 +17,4 @@ class Post < ApplicationRecord
 
   # votes
   has_many :votes, as: :votable
-
-  def voted(user, meth)
-    case meth
-    when 'up', 'down'
-      user.votes_this! self, meth
-    when 'unvote'
-      user.unvotes_this! self
-    else
-      false
-    end
-  end
-
 end
