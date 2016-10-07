@@ -20,9 +20,9 @@ class UsersController < ApplicationController
 
   # params[:relation] : [:follow, :unfollow]
   def update
-    user = User.find(params[:id])
-    current_user.new_relation_with(user, params[:relation])
-    redirect_to user
+    @user = User.find(params[:id])
+    current_user.new_relation_with(@user, params[:relation])
+    render partial: 'follow', locals: { user: @user }
   end
 
   private

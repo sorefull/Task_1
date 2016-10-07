@@ -1,0 +1,12 @@
+<% if logged_in? && current_user != @user %>
+  <% if current_user.following? @user %>
+    <%= link_to 'Unfollow', [@user, relation: :unfollow], method: :patch, remote: true, style: 'color:red;', class: :following %>
+  <% else %>
+    <%= link_to 'Follow', [@user, relation: :follow], method: :patch, remote: true, style: 'color:blue;', class: :following %>
+  <% end %>
+<% end %>
+
+<% if @user.followers.count > 0 %><h3>Is followed by:</h3>
+<% @user.followers.each do |user| %>
+<%= link_to user.name, user %>
+<% end %><% end %>
