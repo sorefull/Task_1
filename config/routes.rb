@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   # admin
   namespace :admin do
-    resources :users, except: [:show, :new, :create, :edit]
+    resources :users, except: [:show, :new, :create]
   end
 
   # welcome
@@ -26,7 +26,9 @@ Rails.application.routes.draw do
   resources :feeds, only: :index
 
   # post
-  resources :posts, except: [:edit]
+  resources :posts, except: [:edit] do
+    resources :comments, only: [:create, :destroy, :update]
+  end
 
   # APIs
   namespace :api, defaults: { format: :json } do

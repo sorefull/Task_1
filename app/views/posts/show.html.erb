@@ -2,6 +2,20 @@
   <%= render partial: 'post', locals: { post: @post } %>
 </div>
 
-<% if logged_in? && (current_user == @post.user or current_user.admin?) %><p>
-  <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' } %>
-</p><% end %>
+<div class="comments">
+  <%= render partial: 'comments/comments', locals: { resource: @post } %>
+</div>
+
+<% if logged_in? %>
+    <%= form_for [@post, @post.comments.build], remote: true do |f| %>
+    <p>
+      <%= f.text_field :body , placeholder: 'Enter your comment here...'%>
+      <%= f.submit :Save %>
+    </p>
+    <% end %>
+    <% if current_user == @post.user or current_user.admin? %>
+      <p>
+        <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, style: 'color:red;' %>
+      </p>
+    <% end %>
+<% end %>

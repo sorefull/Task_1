@@ -7,11 +7,10 @@
       <th>Follows |</th>
       <th>Followers count |</th>
       <th>Voted (posts) |</th>
+      <th>Comented (posts) |</th>
       <th>Social |</th>
-      <th>User |</th>
-      <th>Admin |</th>
-      <th>Normal |</th>
-      <th>Blocked |</th>
+      <th>Role |</th>
+      <th>Status |</th>
       <th></th>
       <th></th>
     </tr>
@@ -25,15 +24,12 @@
         <td><%= user.following.count %></td>
         <td><%= user.followers.count %></td>
         <td><%= user.votes.count %></td>
+        <td><%= user.comments.count %></td>
         <td><%= user.provider %></td>
+        <td><%= user.role %></td>
+        <td><%= user.status %></td>
         <% unless current_user == user%>
-          <%= form_for [:admin, user] do |f| %>
-            <td><%= f.radio_button :role, :user%></td>
-            <td><%= f.radio_button :role, :admin%></td>
-            <td><%= f.radio_button :status, :normal%></td>
-            <td><%= f.radio_button :status, :blocked%></td>
-            <td><%= f.submit %></td>
-          <% end %>
+          <td><%= link_to "Edit", edit_admin_user_path(user), style: 'color:blue;' %></td>
           <td><%= link_to "Delete", [:admin, user], method: :delete, data: { confirm: "Are you sure?" }, style: 'color:red;' %></td>
         <% end %>
       </tr>

@@ -1,0 +1,18 @@
+<p>
+  <% resource.comments.each do |comment| %>
+    <b><%= comment.user.name %>:</b><i><%= comment.body %></i><br>
+    <%= up_votes_of comment %>/<%= down_votes_of comment %> (likes/dislikes)<br>
+    <% if logged_in? %>
+      <% if current_user.voted? comment %>
+        <%= link_to 'Unvote!', [resource, comment, meth: :unvote], method: :patch, remote: true, style: 'color:blue;', class: :vote_comment %>
+      <% else %>
+        <%= link_to 'Like', [resource, comment, meth: :up], method: :patch, remote: true, style: 'color:blue;', class: :vote_comment %>
+        <%= link_to 'Dislike', [resource, comment, meth: :down], method: :patch, remote: true, style: 'color:blue;', class: :vote_comment %>
+      <% end %>
+      <% if current_user == comment.user or current_user.admin? %>
+        <%= link_to 'delete', [resource, comment], method: :delete, style: 'color:red;', class: 'delete_comment', remote: true %>
+      <% end %>
+    <% end %>
+    <br><br>
+  <% end %>
+</p>

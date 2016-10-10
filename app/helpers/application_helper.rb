@@ -13,4 +13,8 @@ module ApplicationHelper
     up_votes_of(resource) - down_votes_of(resource)
   end
 
+  def comments_count(resource)
+    resource.comments.count
+  end
+
 end

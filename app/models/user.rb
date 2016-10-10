@@ -33,4 +33,8 @@ class User < ApplicationRecord
 
   # votes
   include Votable
+
+  # comments
+  has_many :comments, dependent: :destroy
+  
 end

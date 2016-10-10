@@ -20,3 +20,8 @@
 - SessionsController#create_social —> #create - идея в том что ты “создаешь”! а что именно ты создаешь выносится из контроллера в другое место и с этим ты должен разобраться сам
 - UsersContriller —> #follow, #unfollow, #feed —> опять таки смотри DRY и CRUD
 - По модели Like, теперь я хочу дизлайк. модель Dislike  - решение не годится. Вдохновись гемом acts_as_votable, и не используя его сделай решение для лайков и дизлайков
+
+Часть 2:
+- Photos for user avatars, user collection and posts.
+- Comments for the Posts and Photos. Users can like comments.
+- Bootstrap

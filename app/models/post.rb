@@ -17,4 +17,8 @@ class Post < ApplicationRecord
 
   # votes
   has_many :votes, as: :votable
+
+  # comments
+  include Commentable
+  
 end

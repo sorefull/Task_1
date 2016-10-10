@@ -1,13 +1,16 @@
 module Admin
   class UsersController < ApplicationController
     before_action :set_admin
+    before_action :set_user, only: [:edit, :update, :destroy]
 
     def index
       @users = User.all
     end
 
+    def edit
+    end
+
     def update
-      @user = User.find(params[:id])
       unless @user == current_user
         @user.update!(user_params)
         redirect_to admin_users_path, notice: "You edited #{@user.name}'s account."
@@ -17,7 +20,6 @@ module Admin
     end
 
     def destroy
-      @user = User.find(params[:id])
       unless @user == current_user
         name = @user.name
         @user.destroy
@@ -33,6 +35,10 @@ module Admin
         log_out
         redirect_to login_path, alert: 'You mast be Admin!'
       end
+    end
+
+    def set_user
+      @user = User.find(params[:id])
     end
 
     def user_params

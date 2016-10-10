@@ -5,15 +5,17 @@
 </div>
 
 <% if @user.following.count > 0 %><h3>Is following:</h3>
-<% @user.following.each do |user| %>
-<%= link_to user.name, user %>
-<% end %><% end %>
-
-<% unless @user.posts.count > 0 %><h2>Sorry no posts yet.</h2>
-<% else %><h3>Posts:</h3>
-<ul>
-<% @user.posts.each do |post| %>
-<li><%= link_to post.title, post %> (Raiting <%= raiting_of post %>)</li>
+  <% @user.following.each do |user| %>
+    <%= link_to user.name, user %>
+  <% end %>
 <% end %>
-</ul>
+
+<% unless @user.posts.count > 0 %>
+  <h2>Sorry no posts yet.</h2>
+<% else %><h3>Posts:</h3>
+  <ul>
+    <% @user.posts.each do |post| %>
+      <li><%= link_to post.title, post %> (Raiting <%= raiting_of post %>) (Comments <%= comments_count post %>)</li>
+    <% end %>
+  </ul>
 <% end %>

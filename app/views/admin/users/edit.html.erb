@@ -1,0 +1,21 @@
+<p>
+  <%= link_to @user.name, @user %><br>
+  <%= @user.email %>
+</p>
+
+<%= form_for [:admin, @user] do |f| %>
+  <p>
+    Role(User/Admin):
+    <%= f.radio_button :role, :user%>
+    <%= f.radio_button :role, :admin%>
+  </p>
+  <p>
+    Status(Normal/Blocked):
+    <%= f.radio_button :status, :normal%>
+    <%= f.radio_button :status, :blocked%>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+<td><%= link_to "Delete", [:admin, @user], method: :delete, data: { confirm: "Are you sure?" }, style: 'color:red;' %></td>
