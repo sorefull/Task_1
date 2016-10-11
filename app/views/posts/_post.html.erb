@@ -1,8 +1,4 @@
 <p>
-  <strong>Username:</strong>
-  <%= link_to @post.user.name, @post.user %>
-</p>
-<p>
   <strong>Title:</strong>
   <%= @post.title %>
 </p>
@@ -12,16 +8,13 @@
   <%= @post.body %>
 </p>
 
-<p>
-  Got (<%= up_votes_of @post %>) likes!<br>
-  Got (<%= down_votes_of @post %>) dislikes!<br>
-
-  <% if logged_in? %>
-    <% if current_user.voted? @post %>
-      <%= link_to 'Unvote!', [@post, meth: :unvote], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
-    <% else %>
-      <%= link_to 'Like', [@post, meth: :up], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
-      <%= link_to 'Dislike', [@post, meth: :down], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
-  <% end %>
+<% if @post.image.present? %>
+  <p>
+    <strong>Image:</strong><br>
+    <%= link_to post_image_path(@post) do %>
+      <%= image_tag @post.image.file.panorama.url %><br>
+    <% end %>
+  </p>
 <% end %>
-</p>
+
+<%= render partial: 'votes', locals: { resource: @post } %>

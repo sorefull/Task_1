@@ -1,0 +1,17 @@
+<h2>Posts</h2>
+<% unless posts && posts.count > 0 %>
+  <h2>Sorry no posts yet.</h2>
+<% else %>
+  <% posts.each do |post| %>
+  <p>
+    <%= link_to post.user do %>
+      <% if post.user.image.present? %><%= image_tag post.user.image.file.bit.url %><br><% end %>
+      <b><%= post.user.name %><br>
+    <% end %>
+      <%= link_to post.title, post %><br>
+      <%= post.body %><br></b>
+      post's raiting: <%= raiting_of post %><br>
+      comments count: <%= post.comments.count %>
+    </p>
+  <% end %>
+<% end %>

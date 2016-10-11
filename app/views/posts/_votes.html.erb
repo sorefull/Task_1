@@ -1,0 +1,13 @@
+<p>
+  Got (<%= up_votes_of resource %>) likes!<br>
+  Got (<%= down_votes_of resource %>) dislikes!<br>
+
+  <% if logged_in? %>
+    <% if current_user.voted? resource %>
+      <%= link_to 'Unvote!', [resource, meth: :unvote], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
+    <% else %>
+      <%= link_to 'Like', [resource, meth: :up], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
+      <%= link_to 'Dislike', [resource, meth: :down], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
+  <% end %>
+<% end %>
+</p>

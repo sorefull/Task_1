@@ -1,28 +1,2 @@
 <h1>Posts</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Username</th>
-      <th>Title</th>
-      <th>Body</th>
-      <th>Raiting</th>
-      <th>Comments</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= link_to post.user.name, post.user %></td>
-        <td><%= link_to post.title, post %></td>
-        <td><%= post.body %></td>
-        <td><%= raiting_of post %></td>
-        <td><%= post.comments.count %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<%= render partial: 'posts', locals: { posts: @posts } %>

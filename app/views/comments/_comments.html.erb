@@ -1,6 +1,6 @@
 <p>
   <% resource.comments.each do |comment| %>
-    <b><%= comment.user.name %>:</b><i><%= comment.body %></i><br>
+    <b><%= link_to comment.user.name, comment.user %>:</b><i><%= comment.body %></i><br>
     <%= up_votes_of comment %>/<%= down_votes_of comment %> (likes/dislikes)<br>
     <% if logged_in? %>
       <% if current_user.voted? comment %>

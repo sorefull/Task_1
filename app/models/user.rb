@@ -36,5 +36,8 @@ class User < ApplicationRecord
 
   # comments
   has_many :comments, dependent: :destroy
+
+  # avatar
+  include Imagable
   
 end

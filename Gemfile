@@ -35,6 +35,8 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'faker'
 gem "omniauth-google-oauth2"
+gem 'carrierwave', '~> 0.9'
+gem 'mini_magick', '~> 4.3'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

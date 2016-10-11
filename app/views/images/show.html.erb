@@ -1,0 +1,11 @@
+<%= link_to "Back to #{@resource.class.to_s.downcase}", @resource %>
+
+  <p>
+    <%= link_to @resource.image.file.url do %>
+      <%= image_tag @resource.image.file.panorama.url %><br>
+    <% end %>
+  </p>
+
+<div class="show_votes">
+  <%= render partial: 'votes', locals: { resource: @resource } %>
+</div>

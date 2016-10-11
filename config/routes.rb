@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   # user
   resources :users, except: [:index, :edit, :destroy, :new] do
+    resource :image, only: [:show, :update]
     collection do
       get :signup, to: 'users#new'
     end
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
   # post
   resources :posts, except: [:edit] do
     resources :comments, only: [:create, :destroy, :update]
+    resource :image, only: [:show, :update]
   end
 
   # APIs

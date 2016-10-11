@@ -16,9 +16,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.new(post_params)
+    @post = current_user.posts.new(title: post_params[:title], body: post_params[:body])
     respond_to do |format|
-      if @post.save
+      if @post.save && (post_params[:image] ? @post.create_image(file: post_params[:image]) : true)
         format.html { redirect_to posts_path, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
@@ -30,6 +30,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
+    FileUtils.rm_rf("public/uploads/post/image/#{params[:id]}")
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
@@ -48,7 +49,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :body)
+      params.require(:post).permit(:title, :body, :image)
     end
 
     def set_user

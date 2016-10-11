@@ -23,6 +23,7 @@ module Admin
       unless @user == current_user
         name = @user.name
         @user.destroy
+        FileUtils.rm_rf("public/uploads/user/avatar/#{params[:id]}")
         redirect_to admin_users_path, alert: "You sucessfully deleted user '#{name}'"
       else
         redirect_to admin_users_path, alert: "You can't delete yourself!"
