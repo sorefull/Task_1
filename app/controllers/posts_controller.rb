@@ -29,8 +29,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    id = @post.image.id
     @post.destroy
-    FileUtils.rm_rf("public/uploads/post/image/#{params[:id]}")
+    FileUtils.rm_rf("public/uploads/image/file/#{id}")
     respond_to do |format|
       format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }

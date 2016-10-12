@@ -24,8 +24,10 @@ module SessionsHelper
     user.update(name: auth_hash['info']['name'], password: SecureRandom.urlsafe_base64)
     if auth_hash['provider'] == "facebook"
       user.update(email: auth_hash['info']['email'])
+      user.create_image(remote_file_url: auth_hash.info.image.gsub('http://','https://'))
     elsif auth_hash['provider'] == "twitter"
       user.update(email: Faker::Internet.email)
+      user.create_image(remote_file_url: auth_hash.info.image.sub("_normal", ""))
     end
     user.set_auth_token
   end

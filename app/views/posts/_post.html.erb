@@ -1,20 +1,26 @@
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
-
-<p>
-  <strong>Body:</strong><br>
-  <%= @post.body %>
-</p>
-
-<% if @post.image.present? %>
-  <p>
-    <strong>Image:</strong><br>
-    <%= link_to post_image_path(@post) do %>
-      <%= image_tag @post.image.file.panorama.url %><br>
-    <% end %>
-  </p>
-<% end %>
-
-<%= render partial: 'votes', locals: { resource: @post } %>
+<div class="row">
+   <div class="col-sm-7">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= link_to image_tag(@post.user.image.file.bit.url , class: 'img-circle'), @post.user, title: "#{post.user.name}" %>
+          <%= link_to @post.user.name, @post.user %><br>
+        </div>
+        <div class="panel-body">
+          <h2>
+            <%= link_to @post.title, @post %>
+          </h2>
+          <p>
+            <%= @post.body %></b>
+          </p>
+          <% if @post.image.present? %>
+            <p>
+              <%= link_to image_tag(@post.image.file.panorama.url), post_image_path(@post), title: "Image of #{@post.title}" %>
+            </p>
+          <% end %>
+        </div>
+        <div class="panel-footer">
+          <%= render partial: 'votes', locals: { resource: @post } %>
+        </div>
+      </div>
+  </div>
+</div>

@@ -1,17 +1,31 @@
-<h2>Posts</h2>
+<h2>Posts:</h2>
 <% unless posts && posts.count > 0 %>
   <h2>Sorry no posts yet.</h2>
 <% else %>
-  <% posts.each do |post| %>
-  <p>
-    <%= link_to post.user do %>
-      <% if post.user.image.present? %><%= image_tag post.user.image.file.bit.url %><br><% end %>
-      <b><%= post.user.name %><br>
-    <% end %>
-      <%= link_to post.title, post %><br>
-      <%= post.body %><br></b>
-      post's raiting: <%= raiting_of post %><br>
-      comments count: <%= post.comments.count %>
-    </p>
-  <% end %>
+      <% posts.each do |post| %>
+      <div class="row">
+         <div class="col-sm-7">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <%= link_to image_tag(post.user.image.file.bit.url , class: 'img-circle'), post.user, title: "#{post.user.name}" %>
+                <%= link_to post.user.name, post.user %><br>
+              </div>
+              <div class="panel-body">
+                <%= link_to post.title, post %><br>
+                <%= post.body %></b>
+              </div>
+              <div class="panel-footer">
+                <div class="row">
+                  <div class="col-md-8">
+                    post's raiting: <%= raiting_of post %>
+                  </div>
+                  <div class="col-md-4">
+                    comments count: <%= post.comments.count %>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+      <% end %>
 <% end %>

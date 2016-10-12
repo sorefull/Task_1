@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
 
   def create_social
     user = User.find_or_initialize_by(provider: auth_hash['provider'], provider_id: auth_hash['uid'])
+    binding.pry
     if user
       social_update user
       log_in user

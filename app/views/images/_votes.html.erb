@@ -1,13 +1,20 @@
-<p>
-  Got (<%= up_votes_of resource.image %>) likes!<br>
-  Got (<%= down_votes_of resource.image %>) dislikes!<br>
-
-  <% if logged_in? %>
-    <% if current_user.voted? resource.image %>
-      <%= link_to 'Unvote!', [resource, resource.image, meth: :unvote], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
-    <% else %>
-      <%= link_to 'Like', [resource, resource.image, meth: :up], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
-      <%= link_to 'Dislike', [resource, resource.image, meth: :down], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
-  <% end %>
-<% end %>
-</p>
+<div class="panel-footer">
+  <div class="row">
+        <div class="col-md-6">
+          <% if logged_in? %>
+            <% if current_user.voted? resource.image %>
+              <%= link_to 'Unvote!', [resource, resource.image, meth: :unvote], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
+            <% else %>
+              <%= link_to 'Like', [resource, resource.image, meth: :up], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
+              <%= link_to 'Dislike', [resource, resource.image, meth: :down], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
+          <% end %>
+        <% end %>
+        </div>
+        <div class="col-md-3">
+          Got (<%= up_votes_of resource.image %>) likes!
+        </div>
+        <div class="col-md-3">
+          Got (<%= down_votes_of resource.image %>) dislikes!
+        </div>
+  </div>
+</div>
