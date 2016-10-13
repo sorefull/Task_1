@@ -7,15 +7,18 @@
 </div>
 
 <% if logged_in? %>
-    <%= form_for [@post, @post.comments.build], remote: true do |f| %>
-    <p>
-      <%= f.text_field :body , placeholder: 'Enter your comment here...'%>
-      <%= f.submit :Save %>
-    </p>
+<div class="row">
+  <div class="col-sm-4">
+    <%= form_for [@post, @post.comments.build], remote: true, :html => {:class => "form-horizontal"} do |f| %>
+    <div class="row">
+      <div class="col-sm-11">
+        <%= f.text_area :body, class: 'form-control', placeholder: 'Comment..' %>
+      </div>
+      <div class="col-sm-1">
+        <%= f.submit :Save, class: "btn"  %>
+      </div>
+    </div>
     <% end %>
-    <% if current_user == @post.user or current_user.admin? %>
-      <p>
-        <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, style: 'color:red;' %>
-      </p>
-    <% end %>
+  </div>
+</div>
 <% end %>

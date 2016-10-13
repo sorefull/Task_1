@@ -1,32 +1,37 @@
-<%= form_for(post) do |f| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<div class="col-sm-5">
+   <h2 class="form-horizontal-heading">New post</h2>
+   <%= form_for(post, :html => {:class => "form-horizontal"}) do |f| %>
 
-      <ul>
-      <% post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+     <% if post.errors.any? %>
+       <div id="error_explanation">
+         <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
+         <ul>
+         <% post.errors.full_messages.each do |message| %>
+           <li><%= message %></li>
+         <% end %>
+         </ul>
+       </div>
+     <% end %>
 
-  <div class="field">
-    <%= f.label :body %>
-    <%= f.text_area :body %>
-  </div>
+    <%= f.label :title, class: '' %>
+      <div class="">
+        <%= f.text_field :title, class: 'form-control', placeholder: 'title..' %>
+      </div>
 
-  <p>
-    <%= f.label :image %><br>
-    <%= f.file_field :image %>
-  </p>
+       <%= f.label :body, class: '' %>
+       <div class="">
+         <%= f.text_area :body, class: 'form-control', placeholder: 'Body..' %>
+       </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+       <%= f.label :image, class: '' %>
+       <div class="">
+         <%= f.file_field :image, class: 'form-control' %>
+       </div>
+
+       <div class="">
+         <%= f.submit :Save, class: "btn" %>
+       </div>
+   <% end %>
+
+</div>
