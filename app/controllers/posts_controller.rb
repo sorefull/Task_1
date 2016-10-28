@@ -39,7 +39,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    if current_user.votes_this! @post, params[:meth]
+    if @post.vote current_user, params[:meth]
       render partial: 'post', locals: { post: @post }
     end
   end

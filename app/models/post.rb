@@ -16,12 +16,11 @@ class Post < ApplicationRecord
   validates :body, presence: true, length: { maximum: 140 }
 
   # votes
-  has_many :votes, as: :votable
+  include Votable
 
   # comments
   include Commentable
 
-  # image
+  # attachment image
   include Imagable
-
 end

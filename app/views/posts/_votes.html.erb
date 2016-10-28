@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-6">
     <% if logged_in? %>
-      <% if current_user.voted? resource %>
+      <% if resource.voted? current_user %>
         <%= link_to 'Unvote!', [resource, meth: :unvote], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
       <% else %>
         <%= link_to 'Like', [resource, meth: :up], method: :patch, remote: true, style: 'color:blue;', class: :vote %>
@@ -10,9 +10,9 @@
   <% end %>
   </div>
   <div class="col-md-3">
-    Got (<%= up_votes_of resource %>) likes!
+    Got (<%= resource.up_votes %>) likes!
   </div>
   <div class="col-md-3">
-    Got (<%= down_votes_of resource %>) dislikes!
+    Got (<%= resource.down_votes %>) dislikes!
   </div>
 </div>

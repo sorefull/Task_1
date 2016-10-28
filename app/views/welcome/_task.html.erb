@@ -1,42 +1,6 @@
-<h1>TASK</h1>
-<h2>Часть 1:</h2>
-<del>
-  <ul>
-    <li>блог</li>
-    <li>админ, юзеры(админ может давать/забирать права юзерам)</li>
-    <li>юзер создает посты</li>
-    <li>юзер лайкает посты других юзеров</li>
-    <li>юзер подписывается на посты других юзеров</li>
-    <li>юзер удаляет свои посты</li>
-    <li>админ удаляет посты всех</li>
-    <li>админ забирает/возвращает права юзера на создание постов</li>
-    <li>аутентификация(facebook, twitter) без devise!!!<b>(works only with lvh.me domain!!!!!)</b></li>
-    <li>session storage - cookies</li>
-  </ul>
-</del>
-<h3>
-  Доработки по первой части:
-</h3>
-<del>
-  <ul>
-    <li>AdminsController - вынести в app/controllers/admin/users_controller</li>
-    <li>по поводу AdminsController#change_role, AdminsController#change_status :</li>
-    <li>1. посмотри еще раз на эти экшены и вспомни о DRY и CRUD</li>
-    <li>2. я хочу чтобы это было Edit экшеном</li>
-    <li>Если ты сейчас читаешь RUSRails - загляни в раздел strong parameteers и сделай соответственные правки</li>
-    <li>PostController#like, #unlike —> смотри замечания выше</li>
-    <li>SessionsController#create_social —> #create - идея в том что ты “создаешь”! а что именно ты создаешь выносится из контроллера в другое место и с этим ты должен разобраться сам</li>
-    <li>UsersContriller —> #follow, #unfollow, #feed —> опять таки смотри DRY и CRUD</li>
-    <li>По модели Like, теперь я хочу дизлайк. модель Dislike  - решение не годится. Вдохновись гемом acts_as_votable, и не используя его сделай решение для лайков и дизлайков</li>
-  </ul>
-</del>
-<h2>
-Часть 2:
-</h2>
-<ul>
-  <del>
-  <li>Photos for user avatars and posts.</li>
-  <li>Comments for the Posts and Photos. Users can like comments.</li>
-  </del>
-  <li>Bootstrap</li>
-</ul>
+<h1>Welcome here</h1>
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br>
+  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.<br>
+  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>

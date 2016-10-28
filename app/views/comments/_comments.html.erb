@@ -1,4 +1,5 @@
-  <% resource.comments.each do |comment| %>
+
+  <% @post.comments.each do |comment| %>
   <div class="row">
     <div class="col-sm-5">
       <div class="panel panel-default">
@@ -7,24 +8,25 @@
         </div>
         <div class="panel-footer">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <% if logged_in? %>
-                <% if current_user.voted? comment %>
-                  <%= link_to 'Unvote!', [resource, comment, meth: :unvote], method: :patch, remote: true, style: 'color:blue;', class: :vote_comment %>
+                <% if comment.voted? current_user %>
+                  <%= link_to 'Unvote!', [@post, comment, meth: :unvote], method: :patch, remote: true, style: 'color:blue;', class: :vote_comment %>
                 <% else %>
-                  <%= link_to 'Like', [resource, comment, meth: :up], method: :patch, remote: true, style: 'color:blue;', class: :vote_comment %>
-                  <%= link_to 'Dislike', [resource, comment, meth: :down], method: :patch, remote: true, style: 'color:blue;', class: :vote_comment %>
+                  <%= link_to 'Like', [@post, comment, meth: :up], method: :patch, remote: true, style: 'color:blue;', class: :vote_comment %>
+                  <%= link_to 'Dislike', [@post, comment, meth: :down], method: :patch, remote: true, style: 'color:blue;', class: :vote_comment %>
                 <% end %>
                 <% if current_user == comment.user or current_user.admin? %>
-                  <%= link_to 'Delete', [resource, comment], method: :delete, style: 'color:red;', class: 'delete_comment', remote: true %>
+                  <%= link_to 'Delete', [@post, comment], method: :delete, style: 'color:red;', class: 'delete_comment', remote: true %>
+                  <%= link_to 'Edit', edit_post_comment_path(@post, comment), remote: true, class: :edit_comment %>
                 <% end %>
               <% end %>
             </div>
-            <div class="col-md-4">
-              Got (<%= up_votes_of comment %>) likes!
+            <div class="col-md-3">
+              (<%= comment.up_votes %>) likes!
             </div>
-            <div class="col-md-4">
-              Got (<%= down_votes_of comment %>) dislikes!
+            <div class="col-md-3">
+              (<%= comment.down_votes %>) dislikes!
             </div>
           </div>
         </div>

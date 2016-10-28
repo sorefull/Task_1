@@ -16,28 +16,27 @@
 #
 
 class User < ApplicationRecord
-  # Registration autorization
-  include Registrable
-
-  # Posts
-  has_many :posts, dependent: :destroy
+  # votes
+  has_many :votes, dependent: :destroy
 
   #admin
   enum role: [:user, :admin] #[:moderator, :owner, etc]
 
+  # Posts
+  has_many :posts, dependent: :destroy
+
   # blocked
   enum status: [:normal, :blocked]
-
-  # folowing
-  include Followable
-
-  # votes
-  include Votable
 
   # comments
   has_many :comments, dependent: :destroy
 
-  # avatar
+  # Registration autorization
+  include Registrable
+
+  # folowing
+  include Followable
+
+  # attachment avatar
   include Imagable
-  
 end

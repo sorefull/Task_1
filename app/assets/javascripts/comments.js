@@ -4,7 +4,7 @@
 
 
 $(document).on('turbolinks:load', function() {
- $(document).on('ajax:success', '#new_comment', function(xhr, data, status) {
+ $(document).on('ajax:success', '.save_comment', function(xhr, data, status) {
    $('.comments').html(data);
    $('#comment_body').val('');
  });

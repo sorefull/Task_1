@@ -5,4 +5,7 @@ $(document).on('turbolinks:load', function() {
  $(document).on('ajax:success', '.vote', function(xhr, data, status) {
    $('.show_post').html(data);
  });
+ $(document).on('ajax:success', '.edit_comment', function(xhr, data, status) {
+   $(this).parent().parent().parent().parent().parent().html(data);
+ });
 });

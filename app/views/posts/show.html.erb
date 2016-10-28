@@ -9,7 +9,7 @@
 <% if logged_in? %>
 <div class="row">
   <div class="col-sm-4">
-    <%= form_for [@post, @post.comments.build], remote: true, :html => {:class => "form-horizontal"} do |f| %>
+    <%= form_for [@post, @post.comments.build], remote: true, :html => {:class => "form-horizontal save_comment"} do |f| %>
     <div class="row">
       <div class="col-sm-11">
         <%= f.text_area :body, class: 'form-control', placeholder: 'Comment..' %>

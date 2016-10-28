@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
   end
 
   def update
-    if current_user.votes_this! @resource.image, params[:meth]
+    if @resource.image.vote current_user, params[:meth]
       render partial: 'votes', locals: { resource: @resource }
     end
   end

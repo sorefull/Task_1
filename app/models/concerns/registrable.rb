@@ -18,8 +18,8 @@ module Registrable
   end
 
   def generate_auth_token
-    unicuetoken = SecureRandom.uuid.gsub(/\-/,'')
-    generate_auth_token if self.class.find_by(auth_token: unicuetoken)
-    unicuetoken
+    unicue_token = SecureRandom.uuid.gsub(/\-/,'')
+    generate_auth_token if self.class.find_by(auth_token: unicue_token)
+    unicue_token
   end
 end

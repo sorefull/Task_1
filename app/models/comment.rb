@@ -17,5 +17,5 @@ class Comment < ApplicationRecord
   validates :body, presence: true, length: { minimum: 5, maximum: 50 }
 
   # votes
-  has_many :votes, as: :votable
+  include Votable
 end

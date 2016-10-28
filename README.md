@@ -30,6 +30,25 @@
   - Comments for the Posts and Photos. Users can like comments.
   - Bootstrap
 
+### Правки от 27.10.16
+- /app/models/concerns/registrable.rb:21
+unicuetoken unique_token
+
+- /app/models/user.rb -> все в разброс, поправь, инклуды к
+инклудам и т.д.
+
+- /app/controllers/comments_controller.rb:
+-> Почему пост постов называется @resource??? @post
+-> вместо locals: { resource: @resource } попробуй использовать collection: @posts
+-> comment#update нужно использовать для апдейта а не для лайка. написал комент, сохранил, увидел
+ошибку, что делать? удалять и создавать новый?
+
+- названия votes_this! commented_by! и т.д. не годятся. никогда не используй ‘!’ в названиях пока и
+исправь все ВО ВСЕМПРОЕКТЕ.
+
+- User не Votable! Votable -> Image, Post, Comment. @commetn.vote(who, how), @post.vote(who, how) etc.
+- /app/models/concerns/votable.rb - отрефакторить в соответствии с замечанием выше и Sandi Metz
+
 ## Installation
 
 * Clone or download project and open it

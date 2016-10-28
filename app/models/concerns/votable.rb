@@ -2,25 +2,25 @@ module Votable
   extend ActiveSupport::Concern
 
   included do
-    has_many :votes, dependent: :destroy
+    has_many :votes, as: :votable
   end
 
-  def voted?(resource)
-    return votes.where(votable_id: resource.id, votable_type: resource.class.to_s).first.present?
+  def voted?(user)
+    return votes.where(user_id: user.id).first.present?
   end
 
-  def votes_this!(resource, vote) # vote: [:up, :down, :unvote], resource: [:post]
+  def vote(user, vote) # vote: [:up, :down, :unvote], resource: [:post]
     case vote
     when 'unvote'
-      if voted? resource
-        votes.where(votable_id: resource.id, votable_type: resource.class.to_s).first.destroy
+      if voted? user
+        votes.where(user_id: user.id).first.destroy
         save
       else
         false
       end
     when 'up', 'down'
-      unless voted? resource
-        self.votes.build(votable_id: resource.id, votable_type: resource.class.to_s, vote: vote)
+      unless voted? user
+        votes.build(user_id: user.id, vote: vote)
         save
       else
         false
@@ -28,5 +28,18 @@ module Votable
     else
       false
     end
+  end
+
+
+  def up_votes
+    votes.where(vote: :up).count
+  end
+
+  def down_votes
+    votes.where(vote: :down).count
+  end
+
+  def raiting
+    up_votes - down_votes
   end
 end
